@@ -42,23 +42,25 @@ module.exports = class {
         console.log('db getNotes');
         var users = [];
         var notes = [];
+
         await User.find({},function(err, result) {
             users = result;
-            
         });
+
         await Note.find({},function(err, result) {
             notes = result;
-            
         });
+
+        console.log("users", users);
+        console.log("notes", notes);
+
         const result = await notes.map(item => {
             const id = item.user;
             var new_item = item;
             var user;
 
             for(let i=0; i<users.length; i++) {
-                console.log("users[i] --- ", users[i]);
-                if(users[i]._id === id){
-                    console.log('pase');
+                if(users[i]._id.toString() === id.toString()){
                     new_item.user = users[i];
                     break;
                 }                    
