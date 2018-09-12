@@ -51,9 +51,6 @@ module.exports = class {
             notes = result;
         });
 
-        console.log("users", users);
-        console.log("notes", notes);
-
         const result = await notes.map(item => {
             const id = item.user;
             var new_item = item;
@@ -71,18 +68,15 @@ module.exports = class {
             else 
                 return item;
         });
-        console.log('result', result);
         return result;
     }
 
     async dropData() {
-        console.log('db drop');
         try {
             await mongoose.connection.collections.notes.drop();
             await mongoose.connection.collections.users.drop();
         } catch (error) {
             console.log(error);
-            console.log('nothing to drop');
         }
     }
 }
